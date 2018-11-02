@@ -124,9 +124,12 @@ class GHAapp < Sinatra::Application
     logger.debug "----         action #{payload['action']}" unless payload['action'].nil?
 
     case request.env['HTTP_X_GITHUB_EVENT']
-    when :the_event_that_i_care_about
+    when 'issues'
       # Add code here to handle the event that you care about!
-      handle_the_event_that_i_care_about(payload)
+      authenticate_installation(payload)
+      if payload['action'] === 'opened'
+        handle_issue_opened_event(payload)
+      end
     end
 
     'ok'  # we have to return _something_ ;)
@@ -143,9 +146,15 @@ class GHAapp < Sinatra::Application
 
     # This is our handler for the event that you care about! Of course, you'll want to change the name to reflect
     # the actual event name! But this is where you will add code to process the event.
-    def handle_the_event_that_i_care_about(payload)
-      logger.debug 'Handling the event that we care about!'
-      true
+    def authenticate_installation(payload)
+      installation_id = payload['installation']['id']
+      installation_token = @client.create_app_installation_access_token(installation_id)[:token]
+      @bot_client ||= Octokit::Client.new(bearer_token: installation_token)
+    end
+    def handle_issue_opened_event(payload)
+      repo = payload['repository']['full_name']
+      issue_number = payload['issue']['number']
+      @bot_client.add_labels_to_an_issue(repo, issue_number, ['needs-response'])
     end
 
   end
