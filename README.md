@@ -1,13 +1,26 @@
-This is the sample project built by following the "[Building Your First GitHub App](https://developer.github.com/apps/building-your-first-github-app)" Quickstart guide on developer.github.com.
+# RHourz
 
-It consists of two different servers: `server.rb` (boilerplate) and `advanced_server.rb` (completed project).
+> A GitHub App built with [Probot](https://github.com/probot/probot) that A Probot app
 
-## Install and run
+## Setup
 
-To run the code, make sure you have [Bundler](http://gembundler.com/) installed; then enter `bundle install` on the command line.
+```sh
+# Install dependencies
+npm install
 
-* For the boilerplate project, enter `ruby server.rb` on the command line.
+# Run typescript
+npm run build
 
-* For the completed project, enter `ruby advanced_server.rb` on the command line.
+# Run the bot
+npm start
+```
 
-Both commands will run the server at `localhost:3000`.
+## Contributing
+
+If you have suggestions for how RHourz could be improved, or want to report a bug, open an issue! We'd love all and any contributions.
+
+For more, check out the [Contributing Guide](CONTRIBUTING.md).
+
+## License
+
+[ISC](LICENSE) © 2018 Jake Gillberg <jake.gillberg@gmail.com> (https://github.com/rhours/rhours)
