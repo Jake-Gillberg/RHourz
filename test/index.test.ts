@@ -7,7 +7,7 @@ import myProbotApp from '../src'
 import { Probot } from 'probot'
 // Requiring our fixtures
 import payload from './fixtures/issues.opened.json'
-const issueCreatedBody = { body: 'Thanks for opening this issue!' }
+const issueCreatedBody = { body: 'Hello World' }
 
 nock.disableNetConnect()
 
@@ -31,7 +31,7 @@ describe('My Probot app', () => {
 
     // Test that a comment is posted
     nock('https://api.github.com')
-      .post('/repos/hiimbex/testing-things/issues/1/comments', (body: any) => {
+      .post('/graphql', (body: any) => {
         expect(body).toMatchObject(issueCreatedBody)
         return true
       })
